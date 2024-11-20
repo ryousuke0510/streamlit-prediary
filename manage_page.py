@@ -18,10 +18,10 @@ def cal_distance(target_latitude, target_longitude):
     #print(f"distance:{distance}")
     
     if distance <= CIRCLE_DISTANCE:
-        st.write("TRUE")
+        print("TRUE")
         return True
     else:
-        st.write("FALSE")
+        print("FALSE")
         return False
 
 # 時間に関する目標達成判定
@@ -33,9 +33,9 @@ def check_time(scheduled_time):
     minutes_current_time = int(current_time[0:2]) * 60 + int(current_time[2:4])
     miniutes_scheduled_time = int(scheduled_time[0:2]) * 60 + int(scheduled_time[2:4])
     
-    st.write(minutes_current_time)
-    st.write(miniutes_scheduled_time)
-    st.write(abs(minutes_current_time - miniutes_scheduled_time))
+    print(minutes_current_time)
+    print(miniutes_scheduled_time)
+    print(abs(minutes_current_time - miniutes_scheduled_time))
     
     # 30分以内の場合成功
     if abs(minutes_current_time - miniutes_scheduled_time) <= DIFFERENCE_TIME:
