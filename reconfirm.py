@@ -8,6 +8,11 @@ import datetime
 from register import update_location
 import manage_page
 
+from datetime import datetime
+from zoneinfo import ZoneInfo
+# 現地時間のタイムゾーンを指定（例: 日本時間）
+local_now = datetime.now(ZoneInfo("Asia/Tokyo")).date()
+
 import os
 from dotenv import load_dotenv
 
@@ -20,7 +25,7 @@ def show_page():
     """, unsafe_allow_html=True)
 
     # 日付入力
-    new_date_input = st.date_input("日付を入力してください", st.session_state.date_input, key = 'new_date')
+    new_date_input = st.date_input("日付を入力してください", local_now, st.session_state.date_input, key = 'new_date')
     # 時間入力
     new_time_input = st.time_input("時間を入力してください", st.session_state.time_input, key = 'new_time')
     # 目的地入力

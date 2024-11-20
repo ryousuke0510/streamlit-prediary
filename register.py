@@ -7,6 +7,11 @@ import datetime
 #from sqlite import insert_schedule
 import manage_page
 
+from datetime import datetime
+from zoneinfo import ZoneInfo
+# 現地時間のタイムゾーンを指定（例: 日本時間）
+local_now = datetime.now(ZoneInfo("Asia/Tokyo")).date()
+
 import os
 from dotenv import load_dotenv
 

@@ -4,6 +4,11 @@ import manage_page
 from streamlit_folium import st_folium
 import folium
 
+from datetime import datetime
+from zoneinfo import ZoneInfo
+# 現地時間のタイムゾーンを指定（例: 日本時間）
+local_now = datetime.now(ZoneInfo("Asia/Tokyo")).date()
+
 def change_date_format(date):
     str_date = str(date)
     return str_date[0:4] + str_date[5:7] + str_date[8:10]
@@ -14,7 +19,7 @@ def change_time_format(time):
 
 def show_page():
     # 日付入力
-    selected_date = st.date_input('Input date')
+    selected_date = st.date_input('Input date', local_now)
     formatted_date = change_date_format(selected_date)  # 日付をフォーマット
 
     # SQLite3データベースに接続
