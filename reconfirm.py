@@ -8,10 +8,10 @@ import datetime
 from register import update_location
 import manage_page
 
-from datetime import datetime
+from datetime import datetime as dt
 from zoneinfo import ZoneInfo
 # 現地時間のタイムゾーンを指定（例: 日本時間）
-local_now = datetime.now(ZoneInfo("Asia/Tokyo")).date()
+local_now = dt.now(ZoneInfo("Asia/Tokyo")).date()
 
 import os
 from dotenv import load_dotenv

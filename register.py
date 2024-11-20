@@ -7,10 +7,10 @@ import datetime
 #from sqlite import insert_schedule
 import manage_page
 
-from datetime import datetime
+from datetime import datetime as dt
 from zoneinfo import ZoneInfo
 # 現地時間のタイムゾーンを指定（例: 日本時間）
-local_now = datetime.now(ZoneInfo("Asia/Tokyo")).date()
+local_now = dt.now(ZoneInfo("Asia/Tokyo")).date()
 
 import os
 from dotenv import load_dotenv
@@ -34,7 +34,7 @@ def show_page():
     st.markdown("# スケジュール登録")  # st.markdownを使ってタイトルを表示
 
     # 日付入力
-    date_input = st.date_input("日付を入力してください")
+    date_input = st.date_input("日付を入力してください", local_now)
     # 時間入力
     time_input = st.time_input("時間を入力してください", DEFAULT_TIME)
 
