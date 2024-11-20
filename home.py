@@ -44,3 +44,23 @@ def show_page():
                 st.button(f"{change_time_format(time)}   {location}", key=f"button_{idx}", on_click=manage_page.button_home_change, args=(idx, formatted_date, time, location, latitude, longitude), use_container_width=True)  # 関数に渡す引数
     else:
         st.write("スケジュールはありません")
+    
+    if st.session_state["current_latitude"] != None:
+        # 地図の初期位置
+        initial_location = [st.session_state["current_latitude"], st.session_state["current_longitude"]]
+        m = folium.Map(
+            location=initial_location,
+            zoom_start=16,
+            attr='Folium map'
+        )
+        folium.Marker(
+                    [st.session_state["current_latitude"], st.session_state['current_longitude']],
+                    #popup=location.address,
+                    tooltip="現在地",
+                    icon=folium.Icon(color="red")
+                ).add_to(m)
+        # 地図の中心を入力した場所に移動
+        m.location = st.session_state["current_latitude"], st.session_state['current_longitude']
+        m.zoom_start = 16
+        
+        st_folium(m, width=350, height=275)

@@ -5,7 +5,7 @@ import googlemaps
 import datetime
 #import sqlite
 #from sqlite import insert_schedule
-#from register import update_location
+from register import update_location
 import manage_page
 
 import os
@@ -74,42 +74,3 @@ def show_page():
     with colum2:
     # 登録ボタンが押されたら最終確認画面へ遷移
         st.button("登録内容確認",on_click=manage_page.button_registered_change, key = "register", type="primary")
-        
-
-def update_location(location):
-    # 目的地の緯度と経度、最後の更新処理がクリック入力かキーボード入力かの状態の保存
-    st.session_state.destination = location
-    if "location_latitude" not in st.session_state:
-        st.session_state.location_latitude = location[0]
-    if "location_longitude" not in st.session_state:
-        st.session_state.location_longitude = location[1]
-    if "last_clicked" not in st.session_state:
-        st.session_state.last_clicked = False
-
-    # 地図の描画の準備（地図オブジェクトmの作成）
-    m = folium.Map(
-        location=st.session_state.destination,  # 地図の場所
-        zoom_start=16,                          # 初期拡大率
-        attr='Folium map'                       # 地図の属性
-    )
-
-    # マーカーの描画の準備
-    folium.Marker(
-        st.session_state.destination,         # 指定場所にマーカーを追加
-        tooltip=str(st.session_state.destination), # マーカーにカーソルを合わせたときに表示されるテキスト
-        icon=folium.Icon(color="blue")        # アイコンの追加と色の設定
-    ).add_to(m)
-
-    # 地図上でクリックイベントを取得&描画
-    output = st_folium(m, width=350, height=275)
-    st.write("目的地を更新しました")
-
-    # ユーザーが地図上をクリックした場合の処理
-    if output and 'last_clicked' in output and output['last_clicked']:
-        st.session_state.last_clicked = True
-        st.write(st.session_state.last_clicked)
-        st.session_state.location_latitude, st.session_state.location_longitude = output['last_clicked']['lat'], output['last_clicked']['lng']
-
-        # 新しい目的地を更新
-        st.session_state.destination = [st.session_state.location_latitude, st.session_state.location_longitude]
-        update_location(st.session_state.destination)
