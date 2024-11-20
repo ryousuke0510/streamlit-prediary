@@ -3,6 +3,8 @@ import math
 import sqlite3
 from datetime import datetime
 
+from zoneinfo import ZoneInfo
+
 DIFFERENCE_TIME = 30
 
 # 距離に関する目標達成判定
@@ -18,24 +20,24 @@ def cal_distance(target_latitude, target_longitude):
     #print(f"distance:{distance}")
     
     if distance <= CIRCLE_DISTANCE:
-        print("TRUE")
+        #print("TRUE")
         return True
     else:
-        print("FALSE")
+        #print("FALSE")
         return False
 
 # 時間に関する目標達成判定
 def check_time(scheduled_time):
     # 現在時刻を取得
-    current_time = datetime.now().strftime("%H%M")
+    current_time = datetime.now(ZoneInfo("Asia/Tokyo")).strftime("%H%M")
     
     # 形式を分単位に変更（例：02:30 -> 150）
     minutes_current_time = int(current_time[0:2]) * 60 + int(current_time[2:4])
     miniutes_scheduled_time = int(scheduled_time[0:2]) * 60 + int(scheduled_time[2:4])
     
-    print(minutes_current_time)
-    print(miniutes_scheduled_time)
-    print(abs(minutes_current_time - miniutes_scheduled_time))
+    #print(minutes_current_time)
+    #print(miniutes_scheduled_time)
+    #print(abs(minutes_current_time - miniutes_scheduled_time))
     
     # 30分以内の場合成功
     if abs(minutes_current_time - miniutes_scheduled_time) <= DIFFERENCE_TIME:
